@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 import 'screens/shell_screen.dart';
+import 'services/download_location.dart';
+import 'services/download_location_scope.dart';
 import 'theme/app_theme.dart';
 import 'theme/theme_controller.dart';
 
@@ -38,12 +40,14 @@ class NasClientApp extends StatefulWidget {
 
 class _NasClientAppState extends State<NasClientApp> {
   final ThemeController _theme = ThemeController();
+  final DownloadLocationStore _downloadLocation = DownloadLocationStore();
 
   @override
   void initState() {
     super.initState();
     _theme.addListener(_onTheme);
     _theme.load();
+    _downloadLocation.load();
   }
 
   void _onTheme() {
@@ -54,6 +58,7 @@ class _NasClientAppState extends State<NasClientApp> {
   void dispose() {
     _theme.removeListener(_onTheme);
     _theme.dispose();
+    _downloadLocation.dispose();
     super.dispose();
   }
 
@@ -61,13 +66,16 @@ class _NasClientAppState extends State<NasClientApp> {
   Widget build(BuildContext context) {
     return ThemeScope(
       controller: _theme,
-      child: MaterialApp(
-        title: '近邻盘',
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.light(),
-        darkTheme: AppTheme.dark(),
-        themeMode: _theme.mode,
-        home: const ShellScreen(),
+      child: DownloadLocationScope(
+        store: _downloadLocation,
+        child: MaterialApp(
+          title: '近邻盘',
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.light(),
+          darkTheme: AppTheme.dark(),
+          themeMode: _theme.mode,
+          home: const ShellScreen(),
+        ),
       ),
     );
   }

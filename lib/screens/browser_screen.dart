@@ -251,6 +251,11 @@ class _BrowserScreenState extends State<BrowserScreen> {
 
   Future<void> _download(RemoteEntry entry) async {
     try {
+      // system/custom destinations need a one-time SAF grant first.
+      if (!await ensureDownloadLocation(context)) return;
+      if (!mounted) return;
+
+      // Always stage in the app-private folder, then deliver to the target.
       final directory = await downloadDirectory();
       final destination = await uniqueLocalFile(directory, entry.name);
       if (!mounted) return;
@@ -269,16 +274,27 @@ class _BrowserScreenState extends State<BrowserScreen> {
         ),
       );
       if (!mounted) return;
+
+      final delivered = await deliverDownloadedFile(
+        context: context,
+        stagingFile: destination,
+        displayName: entry.name,
+      );
+      if (!mounted) return;
+      final openTarget = delivered == null ? destination : File(delivered);
+      final location = delivered == null ? '应用私有目录' : '已授权的文件夹';
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('已保存到本地文件'),
-          action: SnackBarAction(
-            label: '打开',
-            onPressed: () async {
-              final message = await openLocalFile(destination);
-              if (message != null && mounted) _toast(message);
-            },
-          ),
+          content: Text('已保存到$location'),
+          action: delivered == null
+              ? SnackBarAction(
+                  label: '打开',
+                  onPressed: () async {
+                    final message = await openLocalFile(openTarget);
+                    if (message != null && mounted) _toast(message);
+                  },
+                )
+              : null,
         ),
       );
     } on TransferCancelled {
@@ -558,6 +574,8 @@ class _BrowserScreenState extends State<BrowserScreen> {
                     _switchServer();
                   case 'library':
                     _openLibrary();
+                  case 'location':
+                    showDownloadLocationSheet(context);
                   case 'theme-system':
                   case 'theme-light':
                   case 'theme-dark':
@@ -568,6 +586,7 @@ class _BrowserScreenState extends State<BrowserScreen> {
                 if (widget.onSwitchServer != null)
                   const PopupMenuItem(value: 'server', child: Text('切换服务器')),
                 const PopupMenuItem(value: 'library', child: Text('本地文件')),
+                const PopupMenuItem(value: 'location', child: Text('下载位置')),
                 ...themeMenuItems(ThemeScope.of(context).mode),
               ],
             ),

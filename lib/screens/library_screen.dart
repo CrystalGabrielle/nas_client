@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
+import '../services/download_location.dart';
+import '../services/download_location_scope.dart';
 import '../services/local_files.dart';
 import '../theme/app_theme.dart';
 import '../utils/format.dart';
@@ -303,6 +305,53 @@ class _LibraryScreenState extends State<LibraryScreen> {
     );
   }
 
+  Widget _locationBanner(AppPalette palette) {
+    final store = DownloadLocationScope.of(context);
+    final external = store.mode != DownloadLocation.private;
+    return Container(
+      padding: const EdgeInsets.fromLTRB(14, 12, 12, 12),
+      decoration: BoxDecoration(
+        color: palette.accentSoft,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            external
+                ? Icons.folder_shared_rounded
+                : Icons.phone_android_rounded,
+            color: palette.accent,
+            size: 22,
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '当前下载位置：${store.mode.label}',
+                  style: TextStyle(
+                    color: palette.ink,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                if (external)
+                  Text(
+                    '新文件保存在系统文件夹，用手机的文件管理器查看。',
+                    style: TextStyle(color: palette.muted, fontSize: 12),
+                  ),
+              ],
+            ),
+          ),
+          TextButton(
+            onPressed: () => showDownloadLocationSheet(context),
+            child: const Text('更改'),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _downloadTab(AppPalette palette) {
     final root = _root;
     final current = _current;
@@ -313,6 +362,8 @@ class _LibraryScreenState extends State<LibraryScreen> {
         physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
         children: [
+          _locationBanner(palette),
+          const SizedBox(height: 12),
           Text(
             '这里是你点「下载到本地」保存的文件，可以打开、重命名、移动和删除。',
             style: TextStyle(color: palette.muted, height: 1.4),

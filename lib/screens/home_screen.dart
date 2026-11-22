@@ -305,6 +305,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const SizedBox(width: 8),
                   IconButton(
+                    tooltip: '下载位置',
+                    onPressed: () => showDownloadLocationSheet(context),
+                    icon: const Icon(Icons.download_for_offline_rounded),
+                    style: IconButton.styleFrom(
+                      backgroundColor: palette.card,
+                      foregroundColor: palette.ink,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  IconButton(
                     tooltip: '本地文件',
                     onPressed: () {
                       Navigator.of(context).push(
