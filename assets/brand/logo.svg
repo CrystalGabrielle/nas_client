@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000"
+     role="img" aria-labelledby="title desc">
+  <title id="title">nas_client</title>
+  <desc id="desc">A warm little cottage with a heart in its round window, a signal antenna, and two
+  device nodes connected by dotted lines: green for Samba and blue for FTP.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFAF0"/>
+      <stop offset="1" stop-color="#FFD8B6"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.97" cy="0.03" r="0.62">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-30%" y="-100%" width="160%" height="300%">
+      <feGaussianBlur stdDeviation="34"/>
+    </filter>
+    <clipPath id="round">
+      <rect x="0" y="0" width="1000" height="1000" rx="225"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#round)">
+    <rect width="1000" height="1000" fill="url(#bg)"/>
+    <ellipse cx="970" cy="30" rx="450" ry="450" fill="url(#glow)"/>
+    <ellipse cx="500" cy="774" rx="245" ry="44" fill="#A8643E" opacity="0.4" filter="url(#soft)"/>
+
+    <!-- dotted links to the two device nodes -->
+    <path d="M202 512 H288 M712 512 H798" fill="none" stroke="#E7BA96" stroke-width="9"
+          stroke-linecap="round" stroke-dasharray="1 21" opacity="0.85"/>
+    <circle cx="168" cy="520" r="39" fill="#FFFFFF" opacity="0.6"/>
+    <circle cx="168" cy="520" r="31" fill="#7DB292"/>
+    <circle cx="168" cy="520" r="11" fill="#FFFFFF" opacity="0.9"/>
+    <circle cx="832" cy="520" r="39" fill="#FFFFFF" opacity="0.6"/>
+    <circle cx="832" cy="520" r="31" fill="#89A5D8"/>
+    <circle cx="832" cy="520" r="11" fill="#FFFFFF" opacity="0.9"/>
+
+    <!-- signal arcs and antenna -->
+    <path d="M396 161 A132 132 0 0 1 604 161" fill="none" stroke="#DE9264"
+          stroke-width="11" stroke-linecap="round" opacity="0.5"/>
+    <path d="M427 198 A86 86 0 0 1 573 198" fill="none" stroke="#DE9264"
+          stroke-width="13" stroke-linecap="round" opacity="0.8"/>
+    <path d="M500 268 V196" fill="none" stroke="#C6683F" stroke-width="13" stroke-linecap="round"/>
+    <circle cx="500" cy="196" r="18" fill="#D65B30"/>
+
+    <!-- gable, body, round window, heart -->
+    <path d="M500 290 L292 424 L708 424 Z" fill="#F3B085"/>
+    <rect x="298" y="424" width="404" height="338" rx="62" fill="#FFFDF8"
+          stroke="#EFD2B2" stroke-width="7"/>
+    <rect x="326" y="448" width="348" height="38" rx="19" fill="#FFFFFF" opacity="0.5"/>
+    <circle cx="500" cy="590" r="90" fill="#FFE7CC" stroke="#F7CEA5" stroke-width="7"/>
+    <circle cx="500" cy="590" r="74" fill="#FFF4E2" opacity="0.6"/>
+    <path d="M500 640 C470 610 444 590 444 565 C444 542 462 530 482 530
+             C492 530 500 536 500 545 C500 536 508 530 518 530
+             C538 530 556 542 556 565 C556 590 530 610 500 640 Z"
+          fill="#EC7969"/>
+    <rect x="356" y="706" width="288" height="10" rx="5" fill="#EFD2B2"/>
+    <rect x="344" y="752" width="52" height="34" rx="14" fill="#ECCBA4"/>
+    <rect x="604" y="752" width="52" height="34" rx="14" fill="#ECCBA4"/>
+
+    <!-- roof strokes, on top of the body like an eave -->
+    <path d="M266 442 L500 258 L734 442" fill="none" stroke="#D65B30" stroke-width="56"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M292 424 L500 262 L610 342" fill="none" stroke="#F08F5E" stroke-width="10"
+          stroke-linecap="round" stroke-linejoin="round" opacity="0.45"/>
+
+    <!-- sparkles -->
+    <path d="M196 330 L201 343 L214 348 L201 353 L196 366 L191 353 L178 348 L191 343 Z"
+          fill="#FFFFFF" opacity="0.8"/>
+    <path d="M812 322 L816 331 L826 336 L816 341 L812 350 L808 341 L798 336 L808 331 Z"
+          fill="#FFFFFF" opacity="0.8"/>
+  </g>
+</svg>
