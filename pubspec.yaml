@@ -1,0 +1,29 @@
+name: nas_client
+description: "nas_client（近邻盘）：把身边的 Samba / FTP 网盘装进口袋。"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.12.2
+
+dependencies:
+  file_picker: ^13.1.0
+  flutter:
+    sdk: flutter
+  flutter_secure_storage: ^11.2.0
+  ftpconnect: ^2.0.10
+  image_picker: ^1.2.4
+  open_filex: ^5.0.0
+  path_provider: ^2.1.6
+  smb_connect: ^0.0.9
+  video_player: ^2.10.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/brand/icon.png
